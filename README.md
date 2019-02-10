@@ -36,18 +36,18 @@ plt.show()
 fig.savefig('../images/pcpst.jpg', bbox_inches='tight', pad_inches=0)
 ```
 
-<center>![image](https://github.com/rajkumargithub/densenet.mura/blob/master/images/pcpst.jpg?raw=true)</center>
-<center>Figure 1 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)</center>
+![image](images/pcpst.jpg)</center>
+<center>Figure 1 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)
 
 Figure 1 shows data from each study types. XR_WRIST has largest number of data compared to other study types. But one important thing is that, there is no significant variation in the validation data volumes among on the study types. It may cause some issue when predicting the classes for each study types. Because some study types don't have enough training data compared to others. For example _"XR-HUMERUS"_
 
-<center>![image](https://github.com/rajkumargithub/densenet.mura/blob/master/images/pcpsc.jpg?raw=true)</center>
-<center>Figure 2 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)</center>
+![image](https://github.com/rajkumargithub/densenet.mura/blob/master/images/pcpsc.jpg?raw=true)</center>
+<center>Figure 2 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)
 
 Figure 2 shows the distribution of studies counts in each study (patient level). Sometimes a diagnosis requires multiple studies of different radiographs. It shows how many patients have to under-go multiple studies. It seems like more than 90% of the time, a patient require just one study. However, sometimes they under-go multiple studies.
 
-<center>![image](https://github.com/rajkumargithub/densenet.mura/blob/master/images/pcplc.jpg?raw=true)</center>
-<center>Figure 3 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)</center>
+![image](https://github.com/rajkumargithub/densenet.mura/blob/master/images/pcplc.jpg?raw=true)</center>
+<center>Figure 3 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)
 
 ## Pre-preprocessing
 As per the paper, i have normalized the each image to have same mean & std of the images in the ImageNet training set. the scaled the images. In the paper, they have used variable-sized images to 320 x 320. But i have chosen to scale 224 x 224.  Then i have augmented the data during the training by applying random lateral inversions and rotations of up to 30 degrees using `ImageDataGenerator`
