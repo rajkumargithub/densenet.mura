@@ -37,31 +37,31 @@ fig.savefig('../images/pcpst.jpg', bbox_inches='tight', pad_inches=0)
 ```
 
 ![image](images/pcpst.jpg)
-<center>Figure 1 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)</center>
+Figure 1 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)
 
 Figure 1 shows data from each study types. XR_WRIST has largest number of data compared to other study types. But one important thing is that, there is no significant variation in the validation data volumes among on the study types. It may cause some issue when predicting the classes for each study types. Because some study types don't have enough training data compared to others. For example _"XR-HUMERUS"_
 
 ![image](images/pcpsc.jpg)
-<center>Figure 2 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)</center>
+Figure 2 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)
 
 Figure 2 shows the distribution of studies counts in each study (patient level). Sometimes a diagnosis requires multiple studies of different radiographs. It shows how many patients have to under-go multiple studies. It seems like more than 90% of the time, a patient require just one study. However, sometimes they under-go multiple studies.
 
 ![image](images/pcplc.jpg)
-<center>Figure 3 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)</center>
+Figure 3 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)
 
 Figure 3 represents class distribution in the data for each study types. Ofcourse, it is clear that negative (0) class is dominating the dataset, compared to positive (1) class. However, I don't find the imbalance is of any concern.
 
 ![image](images/pcpvc.jpg)
-<center>Figure 4 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)</center>
+Figure 4 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)
 
 Figure 4 visualizes the distribution of number of images in studies. As we discussed earlier, some patients may required to under-go multiple studies. It is also possible that each study may involve multiple radiographic images. The patient may required to take multiple radiographs during each study depending on the complexity of the problem. From this chart, we can infer, XR_FOREARM, XR_SHOULDER, XR_HAND, XR_WRIST & XR_FINGER study types have 3 images per study on majority of its studies. XR_HUMERUS, XR_ELBOW study type has 2 images per study on majority of its studies.
 
 
 ![image](images/normal.png)
-<center>Figure 5 (Normal radiographs)</center>
-<break/>
+Figure 5 (Normal radiographs)
+
 ![image](images/abnormal.png)
-<center>Figure 6 (Abnormal radiographs)</center>
+Figure 6 (Abnormal radiographs)
 Figure 5 & 6 shows some sample radiographs.
 ```
 #show sample images
