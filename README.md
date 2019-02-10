@@ -104,32 +104,32 @@ test_datagen = ImageDataGenerator(
     )
 ```
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Model & Network Architecture
+DenseNet or Densely Connected Convolutional Neural Network is another flavor of neural network. The DenseNet have several compelling advantages: they alleviate the vanishing-gradient
+problem, strengthen feature propagation, encourage feature
+reuse, and substantially reduce the number of parameters. https://github.com/liuzhuang13/DenseNet
+According to the [paper](https://arxiv.org/pdf/1608.06993.pdf),
+> The traditional convolutional networks with L layers have L
+connections. whereas DenseNet, the l<sup>th</sup> layer has l inputs, consisting of the feature-maps of all preceding convolutional blocks. Its own feature-maps are passed on to all L-l subsequent layers. This introduces
+L(L+1)/2 connections in an L-layer network, instead of just
+L, as in traditional architectures. Because of its dense connectivity
+pattern, we refer to our approach as Dense Convolutional
+Network (DenseNet).
 
-```markdown
-Syntax highlighted code block
+![image](images/dense_net.JPG)
+Figure 7 (A 5-layer dense block with a growth rate of k = 4.
+Each layer takes all preceding feature-maps as input. [Huan. G et.al](https://arxiv.org/pdf/1608.06993.pdf) )
 
-# Header 1
-## Header 2
-### Header 3
+The model leverages consecutive functions (BatchNorm->Relu->Conv) from Wide Res Net paper. I used Keras implementation of DenseNet from `keras.applications.densenet` module. As per the [MURA](https://arxiv.org/abs/1712.06957) paper, I bootstrapped the `DenseNet169` model with the pre-trained weights from ImageNet. The overall probability of a study is computed by taking a arithmetic mean of the abnormalities probabilities output by the network for each image.
 
-- Bulleted
-- List
+As per the [MURA](https://arxiv.org/abs/1712.06957) paper, i replaced the fully connected layer with the one that has a single output, after that i applied a sigmoid nonlinearity. In the paper, the optimized weighted binary cross entropy loss. Please see below for the formula,
 
-1. Numbered
-2. List
+L(X, y) = -W<sub>T,1</sub>  y log p(Y = 1|X) -W<sub>T,0</sub>  (1 - y) log p(Y = 0|X);
 
-**Bold** and _Italic_ and `Code` text
+p(Y = 1||X) is the probability that the network assigns to the label
+i, W<sub>T,1</sub> = |N<sub>T</sub>| / (|A<sub>T</sub>| + |N<sub>T</sub>|), and W<sub>T,0</sub> = |A<sub>T</sub>| / (|A<sub>T</sub>| + |N<sub>T</sub>|) where |A<sub>T</sub>|) and |N<sub>T</sub>|) are the
+number of abnormal images and normal images of study type T in the training set, respectively.
 
-[Link](url) and ![Image](src)
-```
+But i choose to use the default binary cross entropy. The network is configured with Adam using default parameters, batch size of 8, initial learning rate = 0.0001 that is decayed by a factor of 10 each time the validation loss plateaus after an epoch.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/rajkumargithub/rajkumar.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+![image](images/densenet_archi.png)
