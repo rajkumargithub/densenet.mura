@@ -1,4 +1,4 @@
-# **Abnormality Detection in Musculoskeletal Radiographs using [DenseNet](https://arxiv.org/pdf/1608.06993.pdf)**
+# **DenseNet**
 
 ## Objective
 The objective is to build a machine learning model that can detect an abnormality in the X-Ray radiographs. These models can help towards providing healthcare access to the parts of the world where access to skilled radiologists is limited. According to a study on the Global Burden of Disease and the worldwide impact of all diseases found that, “musculoskeletal conditions affect more than 1.7 billion people worldwide. They are the 2nd greatest cause of disabilities, and have the 4th greatest impact on the overall health of the world population when considering both death and disabilities”. (www.usbji.org, n.d.).
