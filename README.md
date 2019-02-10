@@ -1,18 +1,18 @@
 # **DenseNet**
 
 ## Objective
-The objective is to build a machine learning model that can detect an abnormality in the X-Ray radiographs. These models can help towards providing healthcare access to the parts of the world where access to skilled radiologists is limited. According to a study on the Global Burden of Disease and the worldwide impact of all diseases found that, “musculoskeletal conditions affect more than 1.7 billion people worldwide. They are the 2nd greatest cause of disabilities, and have the 4th greatest impact on the overall health of the world population when considering both death and disabilities”. (www.usbji.org, n.d.).
+The objective is to build a machine learning model that can detect an abnormality in the X-Ray radiographs. These models can help towards providing healthcare access to the parts of the world where access to skilled radiologists is limited. According to a study on the Global Burden of Disease and the worldwide impact of all diseases found that, _“musculoskeletal conditions affect more than 1.7 billion people worldwide. They are the 2nd greatest cause of disabilities, and have the 4th greatest impact on the overall health of the world population when considering both death and disabilities”_. (www.usbji.org, n.d.).
 
 Stanford University Machine Learning Group has published a paper related to this problem and provided one of the world’s largest public radiographic images dataset called MURA. MURA is short for Musculoskeletal Radiographs. Stanford university ML group has used DenseNet169 algorithm to train a deep neural network which can detect abnormalities in the radiographs with the accuracy closer to the top radiologists. This project attempts to implement deep neural network using DenseNet169 inspired from the Stanford Paper [Rajpurkar, et al., 2018](https://arxiv.org/abs/1712.06957).
 
-##Dataset
-As per the paper “MURA: Large Dataset for Abnormality Detection in Musculoskeletal Radiographs”, the data is collected de-identified, HIPAA-compliant images from the Pictures Archive and Communication System (PACS) of Stanford Hospital. It consists of 14,863 studies from 12,173 patients, with a total of 40,561 multi-view radiographic images. Each belongs to one of seven Stanford upper extremity radiographic study types: elbow, finger, forearm, humerus, shoulder and wrist. Each study was manually labeled as normal or abnormal by board-certified radiologists from the Stanford Hospital at the time of clinical radiographic interpretation in the diagnostic radiology environment between 2001 and 2012. The labeling was performed during interpretation on DICOM images presented on at least 3 megapixel PACS medical grade display and max luminance 400 cd/m2 and min luminance 1 cd/m2 with pixel size of 0.2 and native resolution of 1500 x 2000 pixels. The clinical images vary in resolution and in aspect ratios. The dataset has 9,045 normal and 5,818 abnormal musculoskeletal radiographic studies. [Rajpurkar, et al., 2018](https://arxiv.org/abs/1712.06957).
+## Dataset
+As per the paper _“MURA: Large Dataset for Abnormality Detection in Musculoskeletal Radiographs”_, the data is collected de-identified, HIPAA-compliant images from the Pictures Archive and Communication System (PACS) of Stanford Hospital. It consists of 14,863 studies from 12,173 patients, with a total of 40,561 multi-view radiographic images. Each belongs to one of seven Stanford upper extremity radiographic study types: elbow, finger, forearm, humerus, shoulder and wrist. Each study was manually labeled as normal or abnormal by board-certified radiologists from the Stanford Hospital at the time of clinical radiographic interpretation in the diagnostic radiology environment between 2001 and 2012. The labeling was performed during interpretation on DICOM images presented on at least 3 megapixel PACS medical grade display and max luminance 400 cd/m2 and min luminance 1 cd/m2 with pixel size of 0.2 and native resolution of 1500 x 2000 pixels. The clinical images vary in resolution and in aspect ratios. The dataset has 9,045 normal and 5,818 abnormal musculoskeletal radiographic studies. [Rajpurkar, et al., 2018](https://arxiv.org/abs/1712.06957).
 
 ## Data Collection
-Stanford review board approved study collected de-idenified, HIPAA-compliant images from the Picture Archive and Communication Systems (PACS) for Stanford Hospital. The assembled a dataset of musculoskeletal radiographs consists of 14,863 studies from 12,173 patients, with the total of 40,561 multi-view radiographic images. Each belongs to one of seven standard upper extremity radiographic study types: elbow, finger, forearm, hand, humerus, shoulder, and wrist. Each study was manually labeled as normal or abnormal by board-certified radiologist from the Stanford Hospital at the time of clinical radiographic interpretation in the diagnostic radiology environment between 2001 and 2012. The labeling was performed during interpretation on DICOM images presented on at least 3 megapixel PACS medical grade display with max luminance 400 cd/m<sup>2</sup> and min luminance 1 cd/m<sup>2</sup> with pixel size of 0.2 and naive resolution of 1500 x 2000 pixels. The clinial images vary in resolution and in aspect ratios. The dataset has been split into training (11,184 patients, 13,457 studies, 36,808 images), validation (783 patients, 1,199 studies, 3,197 images), and test (206 patients, 207 studies, 556 images) sets. There is no overlap in patients between any of the sets. To evaluate the models and get a robust estimate of radiologist performance, additional labels from the board-certified Stanford radiologists on the test set, consisting of 207 musculoskeletal studies. The radiologists individually retrospectively reviewed and labeled each study in the test set as a DICOM file as normal or abnormal in the clinical reading room environment using the PACS. The radiologists have 8.83 years of experience on average ranging from 2 to 25 years. The radiologists did not have access to any clinical information. Labels were entered into a standardized data entry program.[Rajpurkar, et al., 2018](https://arxiv.org/abs/1712.06957).
+Stanford review board approved study collected de-idenified, HIPAA-compliant images from the Picture Archive and Communication Systems (PACS) for Stanford Hospital. The assembled a dataset of musculoskeletal radiographs consists of 14,863 studies from 12,173 patients, with the total of 40,561 multi-view radiographic images. Each belongs to one of seven standard upper extremity radiographic study types: elbow, finger, forearm, hand, humerus, shoulder, and wrist. Each study was manually labeled as normal or abnormal by board-certified radiologist from the Stanford Hospital at the time of clinical radiographic interpretation in the diagnostic radiology environment between 2001 and 2012. The labeling was performed during interpretation on DICOM images presented on at least 3 megapixel PACS medical grade display with max luminance 400 cd/m<sup>2</sup> and min luminance 1 cd/m<sup>2</sup> with pixel size of 0.2 and naive resolution of 1500 x 2000 pixels. The clinical images vary in resolution and in aspect ratios. The dataset has been split into training (11,184 patients, 13,457 studies, 36,808 images), validation (783 patients, 1,199 studies, 3,197 images), and test (206 patients, 207 studies, 556 images) sets. There is no overlap in patients between any of the sets. To evaluate the models and get a robust estimate of radiologist performance, additional labels from the board-certified Stanford radiologists on the test set, consisting of 207 musculoskeletal studies. The radiologists individually retrospectively reviewed and labeled each study in the test set as a DICOM file as normal or abnormal in the clinical reading room environment using the PACS. The radiologists have 8.83 years of experience on average ranging from 2 to 25 years. The radiologists did not have access to any clinical information. Labels were entered into a standardized data entry program.[Rajpurkar, et al., 2018](https://arxiv.org/abs/1712.06957).
 
 ## Abnormality Analysis
-To investigate the types of abnormalities present in the dataset, we reviewed the radiologist reports to manually label 100 abnormal studies with the abnormality finding: 53 studies were labeled with fractures, 48 with hardware, 35 with degenerative join diseases, and 29 with other miscellaneous abnormalities, including lesions and subluxations.[Rajpurkar, et al., 2018](https://arxiv.org/abs/1712.06957).
+To investigate the types of abnormalities present in the dataset, the radiologist reports have been reviewed to manually label 100 abnormal studies with the abnormality finding: 53 studies were labeled with fractures, 48 with hardware, 35 with degenerative join diseases, and 29 with other miscellaneous abnormalities, including lesions and subluxations.[Rajpurkar, et al., 2018](https://arxiv.org/abs/1712.06957).
 
 ## Exploratory Data analysis
 I have created a 2 types of metadata. One containing information for each image with its corresponding label & study type. Another one information containing for each study type, label & image count. So that i can plot the data to understand various characteristics. Also, i have plotted some images from both the classes (Normal & Abnormal) to visualize it.
@@ -132,6 +132,30 @@ number of abnormal images and normal images of study type T in the training set,
 
 But i choose to use the default binary cross entropy. The network is configured with Adam using default parameters, batch size of 8, initial learning rate = 0.0001 that is decayed by a factor of 10 each time the validation loss plateaus after an epoch.
 
+```
+#Bootstrap the base model with pre-trained weights.
+base_model = DenseNet169(input_shape=(None, None,3),
+                         weights='imagenet',
+                         include_top=False,
+                         pooling='avg')
+x = base_model.output
+x = Dropout(0.1)(x)
+predictions = Dense(n_classes,activation='sigmoid')(x)
+model = Model(inputs=base_model.input, outputs=predictions)
+model.compile(loss="binary_crossentropy", optimizer='adam', metrics=['acc', 'mse'])
+```
+
+```
+#Print the network architecture diagram
+from keras.utils import plot_model
+from keras.utils.vis_utils import *
+import keras
+import importlib
+importlib.reload(keras.utils.vis_utils)
+import pydot
+plot_model(model, to_file='images/densenet_archi.png', show_shapes=True)
+```
+
 ![image](images/densenet_archi.png)
 
 ## Training
@@ -142,3 +166,10 @@ To be completed..
 
 ## Prediction
 To be completed..
+
+## Training Environment Setup
+I used AWS EC2 `p3.2xlarge` instance for my training. This type of instance comes with `Tesla V100` GPU. I used `Deep Learning AMI (Ubuntu) Version 21.0 - ami-09a706a24845d072` image to boot up the EC2 instance. This image already loaded with all the CUDA, Tensorflow, Keras modules. I used `tensorflow_p36` virtual environment to spin up jupyter notebook from EC2 instance. Then i followed the below link to create a tunnel to access the notebook url. I reconfigured the jupyter with the `Python 3` kernel.
+[AMS - DLAMI Get started!](https://aws.amazon.com/getting-started/tutorials/get-started-dlami/)
+
+
+_**P.S.:** AWS EC2 Instance can be expensive, i normally use it to train the model only for few hours and then would immediately terminate it. I would save the models so that i can resume train them whenever needed, that way, i don't keep running these machines. There may cheaper alternative options available. But I find AWS EC2 hassle free. It just works for me everytime!_
