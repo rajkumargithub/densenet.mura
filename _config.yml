@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 theme: jekyll-theme-cayman
 title: Abnormality Detection in Musculoskeletal Radiographs using DenseNet
+=======
+theme: jekyll-theme-leap-day
+title: Image Classification Using Convolutional Neural Network
+>>>>>>> b68aa9487f958ebb50f7770003f6227dba92d332
