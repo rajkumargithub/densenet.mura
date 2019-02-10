@@ -1,5 +1,3 @@
-# **DenseNet**
-
 ## Objective
 The objective is to build a machine learning model that can detect an abnormality in the X-Ray radiographs. These models can help towards providing healthcare access to the parts of the world where access to skilled radiologists is limited. According to a study on the Global Burden of Disease and the worldwide impact of all diseases found that, _“musculoskeletal conditions affect more than 1.7 billion people worldwide. They are the 2nd greatest cause of disabilities, and have the 4th greatest impact on the overall health of the world population when considering both death and disabilities”_. (www.usbji.org, n.d.).
 
@@ -194,7 +192,7 @@ As per the [MURA](https://arxiv.org/abs/1712.06957) paper, i replaced the fully 
 
 L(X, y) = -W<sub>T,1</sub>  y log p(Y = 1|X) -W<sub>T,0</sub>  (1 - y) log p(Y = 0|X);
 
-p(Y = 1||X) is the probability that the network assigns to the label
+p(Y = 1|X) is the probability that the network assigns to the label
 i, W<sub>T,1</sub> = |N<sub>T</sub>| / (|A<sub>T</sub>| + |N<sub>T</sub>|), and W<sub>T,0</sub> = |A<sub>T</sub>| / (|A<sub>T</sub>| + |N<sub>T</sub>|) where |A<sub>T</sub>|) and |N<sub>T</sub>|) are the
 number of abnormal images and normal images of study type T in the training set, respectively.
 
@@ -241,3 +239,5 @@ I used AWS EC2 _p3.2xlarge_ instance for my training. This specific instance com
 
 
 _**P.S.:** AWS EC2 Instance can be expensive, i normally use it to train the model only for few hours and then would immediately terminate it. I would save the models so that i can resume train them whenever needed, that way, i don't keep running these machines. There may cheaper options available, But I find AWS EC2 hassle free. It just works for me everytime!_
+
+## Citations
