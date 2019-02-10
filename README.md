@@ -11,6 +11,74 @@ As per the paper _“MURA: Large Dataset for Abnormality Detection in Musculoske
 ## Data Collection
 Stanford review board approved study collected de-idenified, HIPAA-compliant images from the Picture Archive and Communication Systems (PACS) for Stanford Hospital. The assembled a dataset of musculoskeletal radiographs consists of 14,863 studies from 12,173 patients, with the total of 40,561 multi-view radiographic images. Each belongs to one of seven standard upper extremity radiographic study types: elbow, finger, forearm, hand, humerus, shoulder, and wrist. Each study was manually labeled as normal or abnormal by board-certified radiologist from the Stanford Hospital at the time of clinical radiographic interpretation in the diagnostic radiology environment between 2001 and 2012. The labeling was performed during interpretation on DICOM images presented on at least 3 megapixel PACS medical grade display with max luminance 400 cd/m<sup>2</sup> and min luminance 1 cd/m<sup>2</sup> with pixel size of 0.2 and naive resolution of 1500 x 2000 pixels. The clinical images vary in resolution and in aspect ratios. The dataset has been split into training (11,184 patients, 13,457 studies, 36,808 images), validation (783 patients, 1,199 studies, 3,197 images), and test (206 patients, 207 studies, 556 images) sets. There is no overlap in patients between any of the sets. To evaluate the models and get a robust estimate of radiologist performance, additional labels from the board-certified Stanford radiologists on the test set, consisting of 207 musculoskeletal studies. The radiologists individually retrospectively reviewed and labeled each study in the test set as a DICOM file as normal or abnormal in the clinical reading room environment using the PACS. The radiologists have 8.83 years of experience on average ranging from 2 to 25 years. The radiologists did not have access to any clinical information. Labels were entered into a standardized data entry program.[Rajpurkar, et al., 2018](https://arxiv.org/abs/1712.06957).
 
+I downloaded the dataset from stanford machine learning group website  - https://stanfordmlgroup.github.io/competitions/mura. This data comes as split dataset (training & validation in separate directories). Each data categories such as training & validation has sub-directories (pls see below).
+```
+.
+├── train {data category}
+│   ├── XR_ELBOW {study type}
+│   │   ├── patient00011 {patient}
+│   │   │   └── study1_negative {study with label}
+│   │   │       ├── image1.png {radiographs}
+│   │   │       ├── image2.png
+│   │   │       └── image3.png
+
+.
+├── valid {data category}
+│   ├── XR_HUMERUS {study type}
+│   │   ├── patient11216 {patient}
+│   │   │   └── study1_negative {study with label}
+│   │   │       ├── image1.png {radiographs}
+│   │   │       └── image2.png
+```
+I have wrote few simple functions to extract the label information from the study directory and transform the data so that it can be processed for data visualizations, training & validation.
+
+```
+def create_studies_metadata_csv(category):
+    """
+    This function creates a csv file containing the path of studies, count of images & label.
+    """
+    study_data = {}
+    study_label = {'positive': 1, 'negative': 0}
+    study_types = ['XR_ELBOW','XR_FINGER','XR_FOREARM','XR_HAND','XR_HUMERUS','XR_SHOULDER','XR_WRIST']
+    i = 0
+    study_data[category] = pd.DataFrame(columns=['Path', 'Count', 'Label'])
+    for study_type in study_types: # Iterate throught every study types
+        DATA_DIR = '../data/MURA-v1.1/%s/%s/' % (category, study_type)
+        patients = list(os.walk(DATA_DIR))[0][1]  # list of patient folder names
+        for patient in tqdm(patients):  # for each patient folder
+            for study in os.listdir(DATA_DIR + patient):  # for each study in that patient folder
+                if(study != '.DS_Store'):
+                    label = study_label[study.split('_')[1]]  # get label 0 or 1
+                    path = DATA_DIR + patient + '/' + study + '/'  # path to this study
+                    study_data[category].loc[i] = [path, len(os.listdir(path)), label]  # add new row
+                    i += 1
+    study_data[category].to_csv("../data/"+category+"_study_data.csv",index = None, header=False)
+```
+```
+def create_images_metadata_csv(category):
+    """
+    This function creates a csv file containing the path of images, label.
+    """
+    image_data = {}
+    study_label = {'positive': 1, 'negative': 0}
+    study_types = ['XR_ELBOW','XR_FINGER','XR_FOREARM','XR_HAND','XR_HUMERUS','XR_SHOULDER','XR_WRIST']
+    i = 0
+    image_data[category] = pd.DataFrame(columns=['Path', 'Label'])
+    for study_type in study_types: # Iterate throught every study types
+        DATA_DIR = '../data/MURA-v1.1/%s/%s/' % (category, study_type)
+        patients = list(os.walk(DATA_DIR))[0][1]  # list of patient folder names
+        for patient in tqdm(patients):  # for each patient folder
+            for study in os.listdir(DATA_DIR + patient):  # for each study in that patient folder
+                if(study != '.DS_Store'):
+                    label = study_label[study.split('_')[1]]  # get label 0 or 1
+                    path = DATA_DIR + patient + '/' + study + '/'  # path to this study
+                    for j in range(len(os.listdir(path))):
+                        image_path = path + 'image%s.png' % (j + 1)
+                        image_data[category].loc[i] = [image_path, label]  # add new row
+                        i += 1
+    image_data[category].to_csv("../data/"+category+"_image_data.csv",index = None, header=False)
+```
+
 ## Abnormality Analysis
 To investigate the types of abnormalities present in the dataset, the radiologist reports have been reviewed to manually label 100 abnormal studies with the abnormality finding: 53 studies were labeled with fractures, 48 with hardware, 35 with degenerative join diseases, and 29 with other miscellaneous abnormalities, including lesions and subluxations.[Rajpurkar, et al., 2018](https://arxiv.org/abs/1712.06957).
 
@@ -168,8 +236,8 @@ To be completed..
 To be completed..
 
 ## Training Environment Setup
-I used AWS EC2 `p3.2xlarge` instance for my training. This type of instance comes with `Tesla V100` GPU. I used `Deep Learning AMI (Ubuntu) Version 21.0 - ami-09a706a24845d072` image to boot up the EC2 instance. This image already loaded with all the CUDA, Tensorflow, Keras modules. I used `tensorflow_p36` virtual environment to spin up jupyter notebook from EC2 instance. Then i followed the below link to create a tunnel to access the notebook url. I reconfigured the jupyter with the `Python 3` kernel.
+I used AWS EC2 _p3.2xlarge_ instance for my training. This specific instance comes with _Tesla V100_ GPU. I opted for _Deep Learning AMI (Ubuntu) Version 21.0 - ami-09a706a24845d072_ image to boot up the EC2 instance. This image already loaded with the CUDA, Tensorflow & Keras modules. I activated _tensorflow_p36_ virtual environment to spin up jupyter notebook with the _Python 3_ kernel. Then i followed this [link](https://aws.amazon.com/getting-started/tutorials/get-started-dlami/) to create a tunnel to access the notebook url from my laptop.
 [AMS - DLAMI Get started!](https://aws.amazon.com/getting-started/tutorials/get-started-dlami/)
 
 
-_**P.S.:** AWS EC2 Instance can be expensive, i normally use it to train the model only for few hours and then would immediately terminate it. I would save the models so that i can resume train them whenever needed, that way, i don't keep running these machines. There may cheaper alternative options available. But I find AWS EC2 hassle free. It just works for me everytime!_
+_**P.S.:** AWS EC2 Instance can be expensive, i normally use it to train the model only for few hours and then would immediately terminate it. I would save the models so that i can resume train them whenever needed, that way, i don't keep running these machines. There may cheaper options available, But I find AWS EC2 hassle free. It just works for me everytime!_
