@@ -36,17 +36,17 @@ plt.show()
 fig.savefig('../images/pcpst.jpg', bbox_inches='tight', pad_inches=0)
 ```
 
-<center>![Image](/images/pcpst.jpg)</center>
+<center>![image](https://github.com/rajkumargithub/densenet.mura/blob/master/images/pcpst.jpg?raw=true)</center>
 <center>Figure 1 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)</center>
 
-Figure 1 shows data from each study types. XR_WRIST has largest number of data compared to other study types. But one important thing is that, there is no significant variation in the validation data volumes among on the study types. It may cause some issue when predicting the classes for each study types. Be cause some study types don't have enough training data compared to others. For example _"XR-HUMERUS"_
+Figure 1 shows data from each study types. XR_WRIST has largest number of data compared to other study types. But one important thing is that, there is no significant variation in the validation data volumes among on the study types. It may cause some issue when predicting the classes for each study types. Because some study types don't have enough training data compared to others. For example _"XR-HUMERUS"_
 
-<center>![image](/images/pcpsc.jpg)</center>
+<center>![image](https://github.com/rajkumargithub/densenet.mura/blob/master/images/pcpsc.jpg?raw=true)</center>
 <center>Figure 2 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)</center>
 
 Figure 2 shows the distribution of studies counts in each study (patient level). Sometimes a diagnosis requires multiple studies of different radiographs. It shows how many patients have to under-go multiple studies. It seems like more than 90% of the time, a patient require just one study. However, sometimes they under-go multiple studies.
 
-<center>![image](/images/pcplc.jpg)</center>
+<center>![image](https://github.com/rajkumargithub/densenet.mura/blob/master/images/pcplc.jpg?raw=true)</center>
 <center>Figure 3 [Rishabh Agrahari, 2018](https://medium.com/@pyaf/implementing-densenet-on-mura-using-pytorch-f39e92566815)</center>
 
 ## Pre-preprocessing
